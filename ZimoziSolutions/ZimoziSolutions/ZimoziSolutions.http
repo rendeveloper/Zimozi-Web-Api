@@ -1,0 +1,6 @@
+@ZimoziSolutions_HostAddress = http://localhost:5246
+
+GET {{ZimoziSolutions_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
