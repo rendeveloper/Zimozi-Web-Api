@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZimoziSolutions.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CA7A7DC3-641D-4B49-A745-DFDB2EEDFBC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZimoziSolutions.Validations", "ZimoziSolutions.Validations\ZimoziSolutions.Validations.csproj", "{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{F4CCE91A-D1DB-441E-A62D-01738E8E5DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4CCE91A-D1DB-441E-A62D-01738E8E5DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4CCE91A-D1DB-441E-A62D-01738E8E5DD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
