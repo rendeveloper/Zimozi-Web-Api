@@ -1,0 +1,9 @@
+{
+  "Parameters": {
+    "DateFormat": "yyyy-MM-dd HH:mm:ss",
+    "RegexJustLetters": "^[A-Za-z ]+$",
+    "RegexJustNumbers": "^\\d$",
+    "RegexBeAnEmail": "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$",
+    "RegexBeAPhone": "^\\(?([0-9]{3})\\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$"
+  }
+}

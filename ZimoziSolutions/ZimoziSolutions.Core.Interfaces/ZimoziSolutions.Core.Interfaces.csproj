@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Tasks\" />
+    <ProjectReference Include="..\ZimoziSolutions.ApiModels\ZimoziSolutions.ApiModels.csproj" />
   </ItemGroup>
 
 </Project>

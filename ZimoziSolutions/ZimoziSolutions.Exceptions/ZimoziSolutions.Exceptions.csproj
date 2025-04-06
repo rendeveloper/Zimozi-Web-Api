@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Api\" />
-    <Folder Include="Business\" />
-    <Folder Include="Filters\" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZimoziSolutions.ApiModels\ZimoziSolutions.ApiModels.csproj" />
   </ItemGroup>
 
 </Project>

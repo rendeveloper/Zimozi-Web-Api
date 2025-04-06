@@ -7,7 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZimoziSolutions.Common\ZimoziSolutions.Common.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Core.Interfaces\ZimoziSolutions.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Core\ZimoziSolutions.Core.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Exceptions\ZimoziSolutions.Exceptions.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Infrastructure\ZimoziSolutions.Infrastructure.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Validations\ZimoziSolutions.Validations.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,23 +1,47 @@
+using ZimoziSolutions.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+// add services to DI container
+{
+    var configuration = builder.Configuration;
 
-// Add services to the container.
+    #region AppContext
+    builder.Services.AddApplicationContext(configuration);
+    #endregion AppContext
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+    // Add services to the container.
+
+    builder.Services.AddControllers();
+    // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddInfrastructureContext();
+    builder.Services.AddPersistenceContexts();
+    builder.Services.AddRepositories();
+    builder.Services.AddServices();
+    builder.Services.AddMapperConfiguration();
+    builder.Services.AddFilterValidation();
+    builder.Services.AddOpenApi();
+}
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.ConfigureOpenApi();
+
 {
-    app.MapOpenApi();
+    // global cors policy
+    app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+
+    app.ConfigureSwagger();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthorization();
+    app.MapControllers();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();

@@ -7,9 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="Tasks\" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZimoziSolutions.Common\ZimoziSolutions.Common.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Core.Interfaces\ZimoziSolutions.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Domain\ZimoziSolutions.Domain.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Exceptions\ZimoziSolutions.Exceptions.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Infrastructure.Interfaces\ZimoziSolutions.Infrastructure.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Custom\" />
-    <Folder Include="Model\" />
-    <Folder Include="Result\" />
-    <Folder Include="Request\" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZimoziSolutions.ApiModels\ZimoziSolutions.ApiModels.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Common\ZimoziSolutions.Common.csproj" />
   </ItemGroup>
 
 </Project>
