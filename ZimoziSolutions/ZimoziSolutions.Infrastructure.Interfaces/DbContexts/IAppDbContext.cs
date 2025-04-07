@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using ZimoziSolutions.Domain.Models;
+using ZimoziSolutions.Domain.Users;
 
 namespace ZimoziSolutions.Infrastructure.Interfaces.DbContexts
 {
@@ -11,5 +12,6 @@ namespace ZimoziSolutions.Infrastructure.Interfaces.DbContexts
         EntityEntry Entry(object entity);
 
         DbSet<OTask> Tasks { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }
