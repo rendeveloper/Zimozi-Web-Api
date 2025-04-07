@@ -54,7 +54,7 @@ namespace ZimoziSolutions.Controllers
         [HttpGet("admin-only")]
         public IActionResult AdminOnlyEndpoint()
         {
-            return Ok("You are and admin!");
+            return Ok("You are an admin!");
         }
     }
 }

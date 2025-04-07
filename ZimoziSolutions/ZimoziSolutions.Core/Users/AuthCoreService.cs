@@ -63,6 +63,7 @@ namespace ZimoziSolutions.Core.Users
             var hashedPassword = new PasswordHasher<User>()
                 .HashPassword(model, request.Password);
 
+            model.Guid = Guid.NewGuid();
             model.Username = request.Username;
             model.PasswordHash = hashedPassword;
 
@@ -84,7 +85,7 @@ namespace ZimoziSolutions.Core.Users
 
         private async Task<User?> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByGuidAsync(userId);
             if (user is null || user.RefreshToken != refreshToken
                 || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
@@ -119,7 +120,7 @@ namespace ZimoziSolutions.Core.Users
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Guid.ToString()),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 

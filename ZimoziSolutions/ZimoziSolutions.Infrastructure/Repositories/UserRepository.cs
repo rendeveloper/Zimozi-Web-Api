@@ -15,14 +15,48 @@ namespace ZimoziSolutions.Infrastructure.Repositories
 
         public IQueryable<User> Users => _repository.Entities;
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User> GetByIdAsync(int id)
         {
-            return await _repository.Entities.FirstOrDefaultAsync(e => e.Id == id);
+            return await _repository.Entities
+                .Include(x => x.Tasks)
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<User> GetByGuidAsync(Guid id)
+        {
+            return await _repository.Entities
+                .Include(x => x.Tasks)
+                .FirstOrDefaultAsync(e => e.Guid == id);
+        }
+
+        public async Task<IQueryable<User>> GetListFilteredByRole(string role)
+        {
+            List<User> list = await _repository.Entities.Where(e => e.Role == role).ToListAsync();
+
+            return list.AsQueryable();
+        }
+
+        public async Task<List<User>> GetListAsync()
+        {
+            return await _repository.Entities
+                .Include(x => x.Tasks)
+                .ToListAsync();
+        }
+
+        public async Task<IQueryable<User>> GetAllAsync()
+        {
+            List<User> list = await _repository.Entities
+                .Include(x => x.Tasks)
+                .ToListAsync();
+
+            return list.AsQueryable();
         }
 
         public async Task<User> GetByNameAsync(string name)
         {
-            return await _repository.Entities.FirstOrDefaultAsync(e => e.Username == name);
+            return await _repository.Entities
+                .Include(x => x.Tasks)
+                .FirstOrDefaultAsync(e => e.Username == name);
         }
 
         public async Task AddAsync(User model)

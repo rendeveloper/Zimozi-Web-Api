@@ -45,9 +45,11 @@ namespace ZimoziSolutions.Common.Constants
         #region Messages
         public const string MaxDifferenceInMinutesFirstName = "MaxDifferenceInMinutesFirst";
         public const string MaxDifferenceInMinutesLastName = "MaxDifferenceInMinutesLast";
+        public const string DataNotFound = "DataNotFound";
         public const string MissingDataName = "MissingData";
         public const string ModelErrorName = "ModelError";
         public const string NoContentName = "NoContent";
+        public const string IdNotNull = "IdNotNull";
         public const string AlreadyExistsName = "AlreadyExists";
         public const string NameNotEmptyName = "NameNotEmpty";
         public const string NameLengthName = "NameLength";

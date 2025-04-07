@@ -101,8 +101,9 @@ namespace ZimoziSolutions.Extensions
 
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<ITaskCoreService, TaskCoreService>();
             services.AddScoped<IAuthCoreService, AuthCoreService>();
+            services.AddScoped<ITaskCoreService, TaskCoreService>();
+            services.AddScoped<IUserCoreService, UserCoreService>();
         }
 
         public static void AddMapperConfiguration(this IServiceCollection services)

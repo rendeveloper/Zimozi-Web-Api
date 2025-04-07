@@ -12,8 +12,8 @@ using ZimoziSolutions.Infrastructure.DbContexts;
 namespace ZimoziSolutions.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250406223546_AddUserRoleAndRefreshToken")]
-    partial class AddUserRoleAndRefreshToken
+    [Migration("20250407135757_ManyToOneDB")]
+    partial class ManyToOneDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,15 +33,36 @@ namespace ZimoziSolutions.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AssignedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedUserId");
 
                     b.ToTable("OTask");
                 });
 
             modelBuilder.Entity("ZimoziSolutions.Domain.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PasswordHash")
@@ -65,6 +86,22 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.OTask", b =>
+                {
+                    b.HasOne("ZimoziSolutions.Domain.Users.User", "AssignedUser")
+                        .WithMany("Tasks")
+                        .HasForeignKey("AssignedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AssignedUser");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Users.User", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

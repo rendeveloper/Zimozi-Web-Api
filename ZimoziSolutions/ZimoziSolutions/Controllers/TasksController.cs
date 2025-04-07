@@ -15,13 +15,27 @@ namespace ZimoziSolutions.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAsync([FromQuery] PagerData pagerData, [FromQuery] bool? activeTasks = false)
+        public async Task<ActionResult> GetAsync([FromQuery] PagerData pagerData, [FromQuery] int? assignedUserId = 0)
         {
-            var tasks = await _taskCoreService.GetAllAsync(pagerData, activeTasks ?? false);
+            var tasks = await _taskCoreService.GetAllAsync(pagerData, assignedUserId ?? 0);
             return Ok(tasks);
         }
 
-        /*[HttpPost]
+        [HttpGet("{id}"), ActionName("GetId")]
+        public async Task<ActionResult> GetAsync(int id)
+        {
+            var response = await _taskCoreService.GetAsync(id);
+            return Ok(response);
+        }
+
+        [HttpGet("User/{userId}"), ActionName("GetId")]
+        public async Task<ActionResult> GetUserAsync(int userId,[FromQuery] PagerData pagerData)
+        {
+            var response = await _taskCoreService.GetListFilteredByAssignedUserId(pagerData, userId);
+            return Ok(response);
+        }
+
+        [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] TaskModel task)
         {
             var response = await _taskCoreService.AddAsync(task);
@@ -33,6 +47,13 @@ namespace ZimoziSolutions.Controllers
         {
             var response = await _taskCoreService.UpdateAsync(task);
             return Ok(response);
-        }*/
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await _taskCoreService.DeleteAsync(id);
+            return Ok(response);
+        }
     }
 }

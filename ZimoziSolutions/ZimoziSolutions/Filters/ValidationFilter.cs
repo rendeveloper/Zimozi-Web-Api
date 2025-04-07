@@ -12,6 +12,8 @@ using ZimoziSolutions.Controllers;
 using ZimoziSolutions.Validations.Model;
 using ZimoziSolutions.Validations.Request;
 using ZimoziSolutions.ApiModels.Tasks;
+using ZimoziSolutions.ApiModels.Users;
+using ZimoziSolutions.Validations.Request.UserRequest;
 
 namespace ZimoziSolutions.Filters
 {
@@ -63,6 +65,7 @@ namespace ZimoziSolutions.Filters
             return controllerName switch
             {
                 nameof(TasksController) => TasksActions(actionName, arguments),
+                nameof(UserController) => UserActions(actionName, arguments),
                 _ => throw new NotImplementedException()
             };
         }
@@ -71,7 +74,21 @@ namespace ZimoziSolutions.Filters
             actionName switch
             {
                 Constants.TaskGet => new ValidatorModel<PagerData>().Validate(new ValidationPagerDataRequest(), arguments),
+                Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
                 Constants.TaskPost => new ValidatorModel<TaskModel>().Validate(new ValidationTaskAddRequest(), arguments),
+                Constants.TaskPut => new ValidatorModel<TaskModel>().Validate(new ValidationTaskUpdateRequest(), arguments),
+                Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
+                _ => throw new NotImplementedException()
+            };
+
+        public CustomValidationResult UserActions(string actionName, IDictionary<string, object> arguments) =>
+            actionName switch
+            {
+                Constants.TaskGet => new ValidatorModel<PagerData>().Validate(new ValidationPagerDataRequest(), arguments),
+                Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
+                Constants.CustomPost => new ValidatorModel<UserCustomModel>().Validate(new ValidationUserAddRequest(), arguments),
+                Constants.CustomPut => new ValidatorModel<UserCustomModel>().Validate(new ValidationUserUpdateRequest(), arguments),
+                Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
                 _ => throw new NotImplementedException()
             };
 

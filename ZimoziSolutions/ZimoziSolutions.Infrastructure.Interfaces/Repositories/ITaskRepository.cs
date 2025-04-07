@@ -6,11 +6,13 @@ namespace ZimoziSolutions.Infrastructure.Interfaces.Repositories
     public interface ITaskRepository
     {
         IQueryable<OTask> Tasks { get; }
-        Task<OTask> GetByEmailAsync(string email);
+        Task<OTask> GetByIdAsync(int id);
+        Task<IQueryable<OTask>> GetListFilteredByAssignedUserId(int userId);
+        Task<IQueryable<OTask>> GetByStatusAsync(string status);
         Task<List<OTask>> GetListAsync();
         Task<IQueryable<OTask>> GetAllAsync();
-        Task<IQueryable<OTask>> GetListFilteredByActive(bool activeTask);
         Task AddAsync(OTask model);
         void Update(OTask model);
+        void Delete(OTask model);
     }
 }
