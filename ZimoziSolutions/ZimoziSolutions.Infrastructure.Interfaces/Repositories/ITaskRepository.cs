@@ -10,7 +10,7 @@ namespace ZimoziSolutions.Infrastructure.Interfaces.Repositories
         Task<List<OTask>> GetListAsync();
         Task<IQueryable<OTask>> GetAllAsync();
         Task<IQueryable<OTask>> GetListFilteredByActive(bool activeTask);
-        Task AddAsync(OTask task);
-        void Update(OTask task);
+        Task AddAsync(OTask model);
+        void Update(OTask model);
     }
 }

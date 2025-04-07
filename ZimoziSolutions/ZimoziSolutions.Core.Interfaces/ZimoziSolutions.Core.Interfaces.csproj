@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ZimoziSolutions.ApiModels\ZimoziSolutions.ApiModels.csproj" />
+    <ProjectReference Include="..\ZimoziSolutions.Domain\ZimoziSolutions.Domain.csproj" />
   </ItemGroup>
 
 </Project>

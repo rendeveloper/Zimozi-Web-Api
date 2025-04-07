@@ -15,6 +15,16 @@ namespace ZimoziSolutions.Common.Constants
         public const string CustomValidationName = "CustomValidation";
         public const string PagerValidationName = "PagerValidation";
         public const string TaskValidationName = "TaskValidation";
+
+        //For Custom
+        public const string CustomGet = "Get";
+        public const string CustomGetId = "GetId";
+        public const string CustomPost = "Post";
+        public const string CustomPut = "Put";
+        public const string CustomDel = "Delete";
+        public const string CustomAuthName = "Auth";
+
+
         //Localhost
 #if DEBUG
         public const string AppsettingsFilePath = @"ZimoziSolutions\appsettings.json";
@@ -49,6 +59,8 @@ namespace ZimoziSolutions.Common.Constants
         public const string WrongDBConnection = "Wrong DB connection string.";
         public const string ParameterFileNotNound = "Parameter file not found.";
         public const string TextsFileNotFound = "Texts file not found.";
+        public const string AlreadyExistsUsername = "UserAlreadyExists";
+        public const string InvalidUserAndPass = "InvalidUserAndPass";
         #endregion Messages
     }
 }

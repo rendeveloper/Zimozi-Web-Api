@@ -16,7 +16,9 @@
       "MaxDifferenceInMinutesLast": "minutes in",
       "BeAShortDate": "The date cannot contain hours, minutes and seconds in",
       "BeLessThanToDate": "The date must be less than the current day in",
-      "IsNotEmptyThenLenght": "The date must be less than the current day in"
+      "IsNotEmptyThenLenght": "The date must be less than the current day in",
+      "UserAlreadyExists": "Username already exists.",
+      "InvalidUserAndPass": "Invalid username or password."
     },
     "PagerValidation": {
       "PageNumber": "The PageNumber field must be greater than 0.",

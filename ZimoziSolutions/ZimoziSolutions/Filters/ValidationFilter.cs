@@ -20,19 +20,26 @@ namespace ZimoziSolutions.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             ControllerActionDescriptor descriptor = (ControllerActionDescriptor)context.ActionDescriptor;
-            CustomValidationResult customValidationResult = ExecuteValidator($"{descriptor.ControllerName}{Constants.GenericContoller}", descriptor.ActionName, context.ActionArguments);
+            if (descriptor.ControllerName != Constants.CustomAuthName)
+            {
+                CustomValidationResult customValidationResult = ExecuteValidator($"{descriptor.ControllerName}{Constants.GenericContoller}", descriptor.ActionName, context.ActionArguments);
 
-            if (context.ModelState.IsValid && customValidationResult.IsValid)
-                await next();
+                if (context.ModelState.IsValid && customValidationResult.IsValid)
+                    await next();
+                else
+                {
+                    context.Result = new BadRequestObjectResult(new
+                    {
+                        Successful = false,
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Message = ConcatMessages(ApplicationContext.Texts.GetValue(nameof(Texts.Shared), Constants.ModelErrorName), customValidationResult),
+                        ErrorCode = HttpStatusCode.BadRequest
+                    });
+                }
+            }
             else
             {
-                context.Result = new BadRequestObjectResult(new
-                {
-                    Successful = false,
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Message = ConcatMessages(ApplicationContext.Texts.GetValue(nameof(Texts.Shared), Constants.ModelErrorName), customValidationResult),
-                    ErrorCode = HttpStatusCode.BadRequest
-                });
+                await next();
             }
         }
 

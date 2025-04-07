@@ -1,6 +1,7 @@
 ﻿using ZimoziSolutions.Infrastructure.Interfaces.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using ZimoziSolutions.Domain.Models;
+using ZimoziSolutions.Domain.Users;
 
 namespace ZimoziSolutions.Infrastructure.DbContexts
 {
@@ -29,5 +30,6 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
         }
 
         public DbSet<OTask> Tasks { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

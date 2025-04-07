@@ -31,5 +31,10 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             _dbContext.Update(entity);
         }
+
+        public void Delete(T entity)
+        {
+            _dbContext.Remove(entity);
+        }
     }
 }
