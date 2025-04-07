@@ -62,7 +62,7 @@ By default, ASP.NET Core apps listen on the following URLs:
 https://localhost:7165
 http://localhost:5246
 
-To change URL yo have to run it, with the next command:
+To change URL have to run it, with the next command:
 
 `dotnet run or F5`
 
