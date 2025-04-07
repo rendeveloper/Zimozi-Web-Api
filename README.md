@@ -47,9 +47,9 @@ Update features here:
 ![Architecture](./img/CleanArchitectureLayers.png)
 
 ## Develop
-There are two project in source folder, EaseSolutions.HR is the backend built on .Net Core 6 and easesolutions.hr.ui built on React.
+There are one project in source folder, ZimoziSolutions is the backend built on .Net Core 9.
 
->For .net Core Application must be placed on ~\EaseSolutions.HR\source\EaseSolutions.HR\
+>For .net Core Application must be placed on ~\Zimozi-Web-Api\ZimoziSolutions\
 
 To build application:
 
