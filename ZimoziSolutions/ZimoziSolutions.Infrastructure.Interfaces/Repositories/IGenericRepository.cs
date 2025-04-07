@@ -10,5 +10,7 @@ namespace ZimoziSolutions.Infrastructure.Interfaces.Repositories
         Task AddAsync(T entity);
 
         void Update(T entity);
+
+        void Delete(T entity);
     }
 }

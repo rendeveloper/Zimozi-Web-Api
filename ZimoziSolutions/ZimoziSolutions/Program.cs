@@ -14,8 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
     builder.Services.AddInfrastructureContext();
+    builder.Services.AddJwtAuthentication();
+    builder.Services.AddSwaggerAndSecurity();
     builder.Services.AddPersistenceContexts();
     builder.Services.AddRepositories();
     builder.Services.AddServices();
@@ -40,6 +41,7 @@ app.ConfigureOpenApi();
     app.UseHttpsRedirection();
     app.UseStaticFiles();
     app.UseRouting();
+    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
 }

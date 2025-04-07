@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using ZimoziSolutions.Domain.Models;
+using ZimoziSolutions.Domain.Users;
 using ZimoziSolutions.Infrastructure.Interfaces.Repositories;
 
 namespace ZimoziSolutions.Infrastructure.Repositories
@@ -16,9 +17,23 @@ namespace ZimoziSolutions.Infrastructure.Repositories
 
         public IQueryable<OTask> Tasks => _repository.Entities;
 
-        public async Task<OTask> GetByEmailAsync(string email)
+        public async Task<OTask> GetByIdAsync(int id)
         {
-            return await _repository.Entities.FirstOrDefaultAsync(e => e.Id == 0);
+            return await _repository.Entities
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<IQueryable<OTask>> GetListFilteredByAssignedUserId(int userId)
+        {
+            List<OTask> list = await _repository.Entities.Where(e => e.AssignedUserId == userId).ToListAsync();
+
+            return list.AsQueryable();
+        }
+
+        public async Task<IQueryable<OTask>> GetByStatusAsync(string status)
+        {
+            List<OTask> list = await _repository.Entities.Where(e => e.Status == status).ToListAsync();
+            return list.AsQueryable();
         }
 
         public async Task<List<OTask>> GetListAsync()
@@ -33,13 +48,6 @@ namespace ZimoziSolutions.Infrastructure.Repositories
             return list.AsQueryable();
         }
 
-        public async Task<IQueryable<OTask>> GetListFilteredByActive(bool activeTasks)
-        {
-            List<OTask> list = await _repository.Entities.Where(e => e.Id == 0).ToListAsync();
-
-            return list.AsQueryable();
-        }
-
         public async Task AddAsync(OTask task)
         {
             await _repository.AddAsync(task);
@@ -48,6 +56,11 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         public void Update(OTask task)
         {
             _repository.Update(task);
+        }
+
+        public void Delete(OTask task)
+        {
+            _repository.Delete(task);
         }
     }
 }
