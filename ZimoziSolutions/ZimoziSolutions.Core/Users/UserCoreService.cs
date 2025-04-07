@@ -45,14 +45,15 @@ namespace ZimoziSolutions.Core.Users
             else
                 users = await _userRepository.GetAllAsync();
 
-
             Func<OTask, TaskModel> expressTasks = e => new TaskModel
             {
                 TaskId = e.Id,
                 Description = e.Description,
                 Status = e.Status,
                 DueDate = e.DueDate,
-                AssignedUserId = e.AssignedUserId
+                AssignedUserId = e.AssignedUserId,
+                TaskCommentsId = e.TaskCommentsId,
+                NotificationsId = e.NotificationsId
             };
 
             Expression<Func<User, UserCustomModel>> expression = e => new UserCustomModel

@@ -14,6 +14,8 @@ using ZimoziSolutions.Validations.Request;
 using ZimoziSolutions.ApiModels.Tasks;
 using ZimoziSolutions.ApiModels.Users;
 using ZimoziSolutions.Validations.Request.UserRequest;
+using ZimoziSolutions.Validations.Request.CommentRequest;
+using ZimoziSolutions.Validations.Request.NotificationRequest;
 
 namespace ZimoziSolutions.Filters
 {
@@ -66,6 +68,8 @@ namespace ZimoziSolutions.Filters
             {
                 nameof(TasksController) => TasksActions(actionName, arguments),
                 nameof(UserController) => UserActions(actionName, arguments),
+                nameof(CommentController) => CommentActions(actionName, arguments),
+                nameof(NotificationController) => NotificationActions(actionName, arguments),
                 _ => throw new NotImplementedException()
             };
         }
@@ -92,6 +96,27 @@ namespace ZimoziSolutions.Filters
                 _ => throw new NotImplementedException()
             };
 
+        public CustomValidationResult CommentActions(string actionName, IDictionary<string, object> arguments) =>
+            actionName switch
+            {
+                Constants.CustomGet => new ValidatorModel<PagerData>().Validate(new ValidationPagerDataRequest(), arguments),
+                Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
+                Constants.CustomPost => new ValidatorModel<TaskCommentsModel>().Validate(new ValidationCommentAddRequest(), arguments),
+                Constants.CustomPut => new ValidatorModel<TaskCommentsModel>().Validate(new ValidationCommentUpdateRequest(), arguments),
+                Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
+                _ => throw new NotImplementedException()
+            };
+
+        public CustomValidationResult NotificationActions(string actionName, IDictionary<string, object> arguments) =>
+            actionName switch
+            {
+                Constants.CustomGet => new ValidatorModel<PagerData>().Validate(new ValidationPagerDataRequest(), arguments),
+                Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
+                Constants.CustomPost => new ValidatorModel<NotificationsModel>().Validate(new ValidationNotificationAddRequest(), arguments),
+                Constants.CustomPut => new ValidatorModel<NotificationsModel>().Validate(new ValidationNotificationUpdateRequest(), arguments),
+                Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
+                _ => throw new NotImplementedException()
+            };
         private string ConcatMessages(string message, CustomValidationResult customValidationResult)
         {
             StringBuilder messages = new StringBuilder();

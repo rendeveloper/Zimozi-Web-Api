@@ -13,5 +13,7 @@ namespace ZimoziSolutions.Infrastructure.Interfaces.DbContexts
 
         DbSet<OTask> Tasks { get; set; }
         DbSet<User> Users { get; set; }
+        DbSet<TaskComments> TaskComments { get; set; }
+        DbSet<Notifications> Notifications { get; set; }
     }
 }

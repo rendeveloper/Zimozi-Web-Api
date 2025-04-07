@@ -16,7 +16,9 @@ namespace ZimoziSolutions.Core.Mapping
                 .ForMember(d => d.Description, o => o.MapFrom(c => c.Description))
                 .ForMember(d => d.Status, o => o.MapFrom(c => c.Status))
                 .ForMember(d => d.DueDate, o => o.MapFrom(c => c.DueDate))
-                .ForMember(d => d.AssignedUserId, o => o.MapFrom(c => c.AssignedUserId));
+                .ForMember(d => d.AssignedUserId, o => o.MapFrom(c => c.AssignedUserId))
+                .ForMember(d => d.TaskCommentsId, o => o.MapFrom(c => c.TaskCommentsId))
+                .ForMember(d => d.NotificationsId, o => o.MapFrom(c => c.NotificationsId));
 
             CreateMap<UserModel, User>()
                 .ForMember(d => d.Username, o => o.MapFrom(c => c.Username));
@@ -29,6 +31,16 @@ namespace ZimoziSolutions.Core.Mapping
                 .ForMember(d => d.Role, o => o.MapFrom(c => c.Role))
                 .ForMember(d => d.RefreshToken, o => o.MapFrom(c => c.RefreshToken))
                 .ForMember(d => d.RefreshTokenExpiryTime, o => o.MapFrom(c => c.RefreshTokenExpiryTime))
+                .ReverseMap();
+
+            CreateMap<TaskCommentsModel, TaskComments>()
+                .ForMember(d => d.Id, o => o.MapFrom(c => c.Id))
+                .ForMember(d => d.Comments, o => o.MapFrom(c => c.Comments))
+                .ReverseMap();
+
+            CreateMap<NotificationsModel, Notifications>()
+                .ForMember(d => d.Id, o => o.MapFrom(c => c.Id))
+                .ForMember(d => d.TaskUpdates, o => o.MapFrom(c => c.TaskUpdates))
                 .ReverseMap();
         }
         #endregion

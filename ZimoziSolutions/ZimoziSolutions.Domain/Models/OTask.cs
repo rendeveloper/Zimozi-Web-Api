@@ -15,5 +15,13 @@ namespace ZimoziSolutions.Domain.Models
         [ForeignKey("AssignedUserId")]
         public int AssignedUserId { get; set; }
         public virtual User AssignedUser { get; set; }
+
+        [ForeignKey("TaskCommentsId")]
+        public int TaskCommentsId { get; set; }
+        public virtual TaskComments TaskComments { get; set; }
+
+        [ForeignKey("NotificationsId")]
+        public int NotificationsId { get; set; }
+        public virtual Notifications Notifications { get; set; }
     }
 }

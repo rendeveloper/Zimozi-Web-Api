@@ -12,8 +12,8 @@ using ZimoziSolutions.Infrastructure.DbContexts;
 namespace ZimoziSolutions.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250407195618_RemoveColumnName")]
-    partial class RemoveColumnName
+    [Migration("20250407221034_CreateInitialDB")]
+    partial class CreateInitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,23 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.Notifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TaskUpdates")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
 
             modelBuilder.Entity("ZimoziSolutions.Domain.Models.OTask", b =>
                 {
@@ -43,15 +60,42 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("NotificationsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TaskCommentsId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedUserId");
 
+                    b.HasIndex("NotificationsId");
+
+                    b.HasIndex("TaskCommentsId");
+
                     b.ToTable("OTask");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.TaskComments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskComments");
                 });
 
             modelBuilder.Entity("ZimoziSolutions.Domain.TaskHistory.TaskHistory", b =>
@@ -128,7 +172,33 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ZimoziSolutions.Domain.Models.Notifications", "Notifications")
+                        .WithMany("Tasks")
+                        .HasForeignKey("NotificationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZimoziSolutions.Domain.Models.TaskComments", "TaskComments")
+                        .WithMany("Tasks")
+                        .HasForeignKey("TaskCommentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AssignedUser");
+
+                    b.Navigation("Notifications");
+
+                    b.Navigation("TaskComments");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.Notifications", b =>
+                {
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.TaskComments", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("ZimoziSolutions.Domain.Users.User", b =>

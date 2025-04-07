@@ -4,6 +4,7 @@ using ZimoziSolutions.Domain.Models;
 using ZimoziSolutions.Domain.Users;
 using ZimoziSolutions.Domain.TaskHistory;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace ZimoziSolutions.Infrastructure.DbContexts
 {
@@ -34,6 +35,16 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
                 .HasOne<User>(s => s.AssignedUser)
                 .WithMany(g => g.Tasks)
                 .HasForeignKey(s => s.AssignedUserId);
+
+            builder.Entity<OTask>()
+                .HasOne<TaskComments>(s => s.TaskComments)
+                .WithMany(g => g.Tasks)
+                .HasForeignKey(s => s.TaskCommentsId);
+
+            builder.Entity<OTask>()
+                .HasOne<Notifications>(s => s.Notifications)
+                .WithMany(g => g.Tasks)
+                .HasForeignKey(s => s.NotificationsId);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -113,6 +124,8 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
 
         public DbSet<OTask> Tasks { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<TaskComments> TaskComments { get; set; }
+        public DbSet<Notifications> Notifications { get; set; }
         public DbSet<TaskHistory> TaskHistory { get; set; }
     }
 }

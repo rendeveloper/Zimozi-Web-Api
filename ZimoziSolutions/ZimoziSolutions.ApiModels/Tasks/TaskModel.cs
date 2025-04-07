@@ -8,5 +8,7 @@ namespace ZimoziSolutions.ApiModels.Tasks
         public string Status { get; set; }
         public DateTime? DueDate { get; set; }
         public int AssignedUserId { get; set; }
+        public int TaskCommentsId { get; set; }
+        public int NotificationsId { get; set; }
     }
 }
