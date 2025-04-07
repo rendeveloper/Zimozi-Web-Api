@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using ZimoziSolutions.Domain.Models;
 using ZimoziSolutions.Domain.Users;
+using ZimoziSolutions.Domain.TaskHistory;
+using System.Reflection;
 
 namespace ZimoziSolutions.Infrastructure.DbContexts
 {
@@ -34,7 +36,67 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
                 .HasForeignKey(s => s.AssignedUserId);
         }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            List<TaskHistory> taskHistories = new List<TaskHistory>();
+
+            foreach (var changedEntity in ChangeTracker.Entries())
+            {
+                var entityName = changedEntity.Entity.GetType().Name;
+                if(entityName is "OTask")
+                {
+                    foreach (var prop in changedEntity.Entity.GetType().GetTypeInfo().DeclaredProperties)
+                    {
+                        if (!prop.GetGetMethod().IsVirtual)
+                        {
+                            var currentValue = changedEntity.Property(prop.Name).CurrentValue;
+                            switch (changedEntity.State)
+                            {
+                                case EntityState.Added:
+
+                                    taskHistories.Add(new TaskHistory()
+                                    {
+                                        Id = 0,
+                                        Timestamp = DateTime.UtcNow,
+                                        FieldName = changedEntity.Property(prop.Name).Metadata.Name,
+                                        OldValue = "",
+                                        NewValue = currentValue.ToString(),
+                                        EntityState = changedEntity.State.ToString()
+                                    });
+
+                                    break;
+                                case EntityState.Modified:
+                                    var originalValue = changedEntity.GetDatabaseValues().GetValue<object>(prop.Name);
+                                    if (currentValue.ToString() != originalValue.ToString())
+                                    {
+                                        taskHistories.Add(new TaskHistory()
+                                        {
+                                            Id = 0,
+                                            Timestamp = DateTime.UtcNow,
+                                            FieldName = changedEntity.Property(prop.Name).Metadata.Name,
+                                            OldValue = originalValue.ToString(),
+                                            NewValue = currentValue.ToString(),
+                                            EntityState = changedEntity.State.ToString()
+                                        });
+                                    }
+
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (var taskHistory in taskHistories)
+            {
+                base.Add(taskHistory);
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
         public DbSet<OTask> Tasks { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<TaskHistory> TaskHistory { get; set; }
     }
 }
