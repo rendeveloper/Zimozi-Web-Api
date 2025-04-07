@@ -53,7 +53,6 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
                             switch (changedEntity.State)
                             {
                                 case EntityState.Added:
-
                                     taskHistories.Add(new TaskHistory()
                                     {
                                         Id = 0,
@@ -65,21 +64,38 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
                                     });
 
                                     break;
+
                                 case EntityState.Modified:
-                                    var originalValue = changedEntity.GetDatabaseValues().GetValue<object>(prop.Name);
-                                    if (currentValue.ToString() != originalValue.ToString())
                                     {
+                                        var originalValue = changedEntity.GetDatabaseValues().GetValue<object>(prop.Name);
+                                        if (currentValue.ToString() != originalValue.ToString())
+                                        {
+                                            taskHistories.Add(new TaskHistory()
+                                            {
+                                                Id = 0,
+                                                Timestamp = DateTime.UtcNow,
+                                                FieldName = changedEntity.Property(prop.Name).Metadata.Name,
+                                                OldValue = originalValue.ToString(),
+                                                NewValue = currentValue.ToString(),
+                                                EntityState = changedEntity.State.ToString()
+                                            });
+                                        }
+                                    }
+                                    break;
+
+                                case EntityState.Deleted:
+                                    {
+                                        var originalValue = changedEntity.GetDatabaseValues().GetValue<object>(prop.Name);
                                         taskHistories.Add(new TaskHistory()
                                         {
                                             Id = 0,
                                             Timestamp = DateTime.UtcNow,
                                             FieldName = changedEntity.Property(prop.Name).Metadata.Name,
                                             OldValue = originalValue.ToString(),
-                                            NewValue = currentValue.ToString(),
+                                            NewValue = "",
                                             EntityState = changedEntity.State.ToString()
                                         });
                                     }
-
                                     break;
                             }
                         }
