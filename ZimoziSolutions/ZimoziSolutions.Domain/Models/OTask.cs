@@ -1,11 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZimoziSolutions.Domain.Users;
+using ZimoziSolutions.Domain.UserTask;
 
 namespace ZimoziSolutions.Domain.Models
 {
     public class OTask
     {
+        public OTask()
+        {
+            UserTasks = new HashSet<UserTasks>();
+        }
         [Key]
         public int Id { get; set; }
         public string Description { get; set; }
@@ -23,5 +28,7 @@ namespace ZimoziSolutions.Domain.Models
         [ForeignKey("NotificationsId")]
         public int NotificationsId { get; set; }
         public virtual Notifications Notifications { get; set; }
+
+        public virtual ICollection<UserTasks> UserTasks { get; set; }
     }
 }

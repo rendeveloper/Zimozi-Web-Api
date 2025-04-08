@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ZimoziSolutions.Domain.Users;
+using ZimoziSolutions.Domain.UserTask;
 using ZimoziSolutions.Infrastructure.Interfaces.Repositories;
 
 namespace ZimoziSolutions.Infrastructure.Repositories
@@ -19,6 +20,7 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             return await _repository.Entities
                 .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
@@ -26,12 +28,16 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             return await _repository.Entities
                 .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
                 .FirstOrDefaultAsync(e => e.Guid == id);
         }
 
         public async Task<IQueryable<User>> GetListFilteredByRole(string role)
         {
-            List<User> list = await _repository.Entities.Where(e => e.Role == role).ToListAsync();
+            List<User> list = await _repository.Entities
+                .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
+                .Where(e => e.Role == role).ToListAsync();
 
             return list.AsQueryable();
         }
@@ -40,6 +46,7 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             return await _repository.Entities
                 .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
                 .ToListAsync();
         }
 
@@ -47,6 +54,7 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             List<User> list = await _repository.Entities
                 .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
                 .ToListAsync();
 
             return list.AsQueryable();
@@ -56,6 +64,7 @@ namespace ZimoziSolutions.Infrastructure.Repositories
         {
             return await _repository.Entities
                 .Include(x => x.Tasks)
+                .Include(x => x.UserTasks)
                 .FirstOrDefaultAsync(e => e.Username == name);
         }
 

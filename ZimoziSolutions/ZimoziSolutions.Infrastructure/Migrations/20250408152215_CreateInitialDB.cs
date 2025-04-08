@@ -108,6 +108,30 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserTasks",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTasks", x => new { x.TaskId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_UserTasks_OTask_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "OTask",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserTasks_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_OTask_AssignedUserId",
                 table: "OTask",
@@ -122,16 +146,24 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                 name: "IX_OTask_TaskCommentsId",
                 table: "OTask",
                 column: "TaskCommentsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTasks_UserId",
+                table: "UserTasks",
+                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OTask");
+                name: "TaskHistory");
 
             migrationBuilder.DropTable(
-                name: "TaskHistory");
+                name: "UserTasks");
+
+            migrationBuilder.DropTable(
+                name: "OTask");
 
             migrationBuilder.DropTable(
                 name: "Notifications");

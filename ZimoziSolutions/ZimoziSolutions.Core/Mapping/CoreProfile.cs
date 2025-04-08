@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ZimoziSolutions.ApiModels.Tasks;
 using ZimoziSolutions.ApiModels.Users;
+using ZimoziSolutions.ApiModels.UserTask;
 using ZimoziSolutions.Domain.Models;
 using ZimoziSolutions.Domain.Users;
+using ZimoziSolutions.Domain.UserTask;
 
 namespace ZimoziSolutions.Core.Mapping
 {
@@ -41,6 +43,11 @@ namespace ZimoziSolutions.Core.Mapping
             CreateMap<NotificationsModel, Notifications>()
                 .ForMember(d => d.Id, o => o.MapFrom(c => c.Id))
                 .ForMember(d => d.TaskUpdates, o => o.MapFrom(c => c.TaskUpdates))
+                .ReverseMap();
+
+            CreateMap<UserTasksModel, UserTasks>()
+                .ForMember(d => d.UserId, o => o.MapFrom(c => c.UserId))
+                .ForMember(d => d.TaskId, o => o.MapFrom(c => c.TaskId))
                 .ReverseMap();
         }
         #endregion

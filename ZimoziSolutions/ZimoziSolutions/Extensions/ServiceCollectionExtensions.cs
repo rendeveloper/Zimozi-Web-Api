@@ -11,10 +11,12 @@ using ZimoziSolutions.Core.Interfaces.TaskComments;
 using ZimoziSolutions.Core.Interfaces.TaskNotifs;
 using ZimoziSolutions.Core.Interfaces.Tasks;
 using ZimoziSolutions.Core.Interfaces.Users;
+using ZimoziSolutions.Core.Interfaces.UserTask;
 using ZimoziSolutions.Core.TaskComment;
 using ZimoziSolutions.Core.TaskNotifs;
 using ZimoziSolutions.Core.Tasks;
 using ZimoziSolutions.Core.Users;
+using ZimoziSolutions.Core.UserTask;
 using ZimoziSolutions.Exceptions.Api;
 using ZimoziSolutions.Exceptions.Filters;
 using ZimoziSolutions.Filters;
@@ -99,6 +101,7 @@ namespace ZimoziSolutions.Extensions
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ITaskRepository, TaskRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserTasksRepository, UserTasksRepository>();
             services.AddTransient<ITaskCommentsRepository, TaskCommentsRepository>();
             services.AddTransient<INotificationsRepository, NotificationsRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -110,6 +113,7 @@ namespace ZimoziSolutions.Extensions
             services.AddScoped<IAuthCoreService, AuthCoreService>();
             services.AddScoped<ITaskCoreService, TaskCoreService>();
             services.AddScoped<IUserCoreService, UserCoreService>();
+            services.AddScoped<IUserTasksCoreService, UserTasksCoreService>();
             services.AddScoped<ITaskCommentsCoreService, TaskCommentsCoreService>();
             services.AddScoped<INotificationsCoreService, NotificationsCoreService>();
         }

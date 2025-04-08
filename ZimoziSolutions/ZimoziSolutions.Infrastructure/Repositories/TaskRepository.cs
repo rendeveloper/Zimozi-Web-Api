@@ -25,25 +25,33 @@ namespace ZimoziSolutions.Infrastructure.Repositories
 
         public async Task<IQueryable<OTask>> GetListFilteredByAssignedUserId(int userId)
         {
-            List<OTask> list = await _repository.Entities.Where(e => e.AssignedUserId == userId).ToListAsync();
+            List<OTask> list = await _repository.Entities
+                .Include(x => x.UserTasks)
+                .Where(e => e.AssignedUserId == userId).ToListAsync();
 
             return list.AsQueryable();
         }
 
         public async Task<IQueryable<OTask>> GetByStatusAsync(string status)
         {
-            List<OTask> list = await _repository.Entities.Where(e => e.Status == status).ToListAsync();
+            List<OTask> list = await _repository.Entities
+                .Include(x => x.UserTasks)
+                .Where(e => e.Status == status).ToListAsync();
             return list.AsQueryable();
         }
 
         public async Task<List<OTask>> GetListAsync()
         {
-            return await _repository.Entities.ToListAsync();
+            return await _repository.Entities
+                .Include(x => x.UserTasks)
+                .ToListAsync();
         }
 
         public async Task<IQueryable<OTask>> GetAllAsync()
         {
-            List<OTask> list = await _repository.Entities.ToListAsync();
+            List<OTask> list = await _repository.Entities
+                .Include(x => x.UserTasks)
+                .ToListAsync();
 
             return list.AsQueryable();
         }

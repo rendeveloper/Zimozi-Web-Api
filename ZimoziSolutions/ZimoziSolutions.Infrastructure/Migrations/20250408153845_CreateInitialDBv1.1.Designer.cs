@@ -12,8 +12,8 @@ using ZimoziSolutions.Infrastructure.DbContexts;
 namespace ZimoziSolutions.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250408112541_CreateInitialDB")]
-    partial class CreateInitialDB
+    [Migration("20250408153845_CreateInitialDBv1.1")]
+    partial class CreateInitialDBv11
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,6 +130,21 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                     b.ToTable("TaskHistory");
                 });
 
+            modelBuilder.Entity("ZimoziSolutions.Domain.UserTask.UserTasks", b =>
+                {
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TaskId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserTasks");
+                });
+
             modelBuilder.Entity("ZimoziSolutions.Domain.Users.User", b =>
                 {
                     b.Property<int>("Id")
@@ -191,9 +206,33 @@ namespace ZimoziSolutions.Infrastructure.Migrations
                     b.Navigation("TaskComments");
                 });
 
+            modelBuilder.Entity("ZimoziSolutions.Domain.UserTask.UserTasks", b =>
+                {
+                    b.HasOne("ZimoziSolutions.Domain.Models.OTask", "Task")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ZimoziSolutions.Domain.Users.User", "User")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Task");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ZimoziSolutions.Domain.Models.Notifications", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("ZimoziSolutions.Domain.Models.OTask", b =>
+                {
+                    b.Navigation("UserTasks");
                 });
 
             modelBuilder.Entity("ZimoziSolutions.Domain.Models.TaskComments", b =>
@@ -204,6 +243,8 @@ namespace ZimoziSolutions.Infrastructure.Migrations
             modelBuilder.Entity("ZimoziSolutions.Domain.Users.User", b =>
                 {
                     b.Navigation("Tasks");
+
+                    b.Navigation("UserTasks");
                 });
 #pragma warning restore 612, 618
         }

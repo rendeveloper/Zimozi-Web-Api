@@ -13,6 +13,8 @@ using ZimoziSolutions.Common.Context;
 using ZimoziSolutions.Common.Languages;
 using ZimoziSolutions.Exceptions.Business;
 using ZimoziSolutions.Common.Constants;
+using ZimoziSolutions.ApiModels.UserTask;
+using ZimoziSolutions.Domain.UserTask;
 
 namespace ZimoziSolutions.Core.Tasks
 {
@@ -38,6 +40,12 @@ namespace ZimoziSolutions.Core.Tasks
             else
                 tasks = await _taskRepository.GetAllAsync();
 
+            Func<UserTasks, UserTasksModel> expressUserTasks = e => new UserTasksModel
+            {
+                UserId = e.UserId,
+                TaskId = e.TaskId
+            };
+
             Expression<Func<OTask, TaskModel>> expression = e => new TaskModel
             {
                 TaskId = e.Id,
@@ -45,6 +53,12 @@ namespace ZimoziSolutions.Core.Tasks
                 Status = e.Status,
                 DueDate = e.DueDate,
                 AssignedUserId = e.AssignedUserId,
+                TaskCommentsId = e.TaskCommentsId,
+                NotificationsId = e.NotificationsId,
+                UserTasks = e.UserTasks
+                        .Select(expressUserTasks)
+                        .OrderBy(x => x.TaskId)
+                        .ToList()
             };
 
             var paginatedList = tasks

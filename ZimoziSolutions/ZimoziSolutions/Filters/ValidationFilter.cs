@@ -16,6 +16,8 @@ using ZimoziSolutions.ApiModels.Users;
 using ZimoziSolutions.Validations.Request.UserRequest;
 using ZimoziSolutions.Validations.Request.CommentRequest;
 using ZimoziSolutions.Validations.Request.NotificationRequest;
+using ZimoziSolutions.ApiModels.UserTask;
+using ZimoziSolutions.Validations.Request.UserTaskRequest;
 
 namespace ZimoziSolutions.Filters
 {
@@ -68,6 +70,7 @@ namespace ZimoziSolutions.Filters
             {
                 nameof(TasksController) => TasksActions(actionName, arguments),
                 nameof(UserController) => UserActions(actionName, arguments),
+                nameof(UserTaskController) => UserTaskActions(actionName, arguments),
                 nameof(CommentController) => CommentActions(actionName, arguments),
                 nameof(NotificationController) => NotificationActions(actionName, arguments),
                 _ => throw new NotImplementedException()
@@ -92,6 +95,16 @@ namespace ZimoziSolutions.Filters
                 Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
                 Constants.CustomPost => new ValidatorModel<UserCustomModel>().Validate(new ValidationUserAddRequest(), arguments),
                 Constants.CustomPut => new ValidatorModel<UserCustomModel>().Validate(new ValidationUserUpdateRequest(), arguments),
+                Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
+                _ => throw new NotImplementedException()
+            };
+
+        public CustomValidationResult UserTaskActions(string actionName, IDictionary<string, object> arguments) =>
+            actionName switch
+            {
+                Constants.CustomGetId => new ValidatorModel<int>().Validate(new ValidationTaskGetIdRequest(), arguments),
+                Constants.CustomPost => new ValidatorModel<UserTasksModel>().Validate(new ValidationUserTaskAddRequest(), arguments),
+                Constants.CustomPut => new ValidatorModel<UserTasksModel>().Validate(new ValidationUserTaskUpdateRequest(), arguments),
                 Constants.CustomDel => new ValidatorModel<int>().Validate(new ValidationDeleteRequest(), arguments),
                 _ => throw new NotImplementedException()
             };

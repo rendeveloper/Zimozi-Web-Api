@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using ZimoziSolutions.Domain.Models;
+using ZimoziSolutions.Domain.UserTask;
 
 namespace ZimoziSolutions.Domain.Users
 {
@@ -9,7 +10,9 @@ namespace ZimoziSolutions.Domain.Users
         public User()
         {
             Tasks = new HashSet<OTask>();
+            UserTasks = new HashSet<UserTasks>();
         }
+
         [Key]
         public int Id { get; set; }
         public Guid Guid { get; set; }
@@ -20,5 +23,6 @@ namespace ZimoziSolutions.Domain.Users
         public DateTime? RefreshTokenExpiryTime { get; set; }
 
         public virtual ICollection<OTask> Tasks { get; set; }
+        public virtual ICollection<UserTasks> UserTasks { get; set; }
     }
 }

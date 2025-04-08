@@ -5,6 +5,7 @@ using ZimoziSolutions.Domain.Users;
 using ZimoziSolutions.Domain.TaskHistory;
 using System.Reflection;
 using System.Reflection.Emit;
+using ZimoziSolutions.Domain.UserTask;
 
 namespace ZimoziSolutions.Infrastructure.DbContexts
 {
@@ -30,6 +31,20 @@ namespace ZimoziSolutions.Infrastructure.DbContexts
             }
 
             base.OnModelCreating(builder);
+            
+            builder.Entity<UserTasks>(x => x.HasKey(p => new { p.TaskId, p.UserId }));
+
+            builder.Entity<UserTasks>()
+                .HasOne(u => u.Task)
+                .WithMany(u => u.UserTasks)
+                .HasForeignKey(p => p.TaskId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserTasks>()
+                .HasOne(u => u.User)
+                .WithMany(u => u.UserTasks)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<OTask>()
                 .HasOne<User>(s => s.AssignedUser)
