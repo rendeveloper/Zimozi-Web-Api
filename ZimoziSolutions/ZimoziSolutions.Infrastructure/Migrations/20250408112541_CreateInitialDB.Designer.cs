@@ -12,7 +12,7 @@ using ZimoziSolutions.Infrastructure.DbContexts;
 namespace ZimoziSolutions.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250407221034_CreateInitialDB")]
+    [Migration("20250408112541_CreateInitialDB")]
     partial class CreateInitialDB
     {
         /// <inheritdoc />
