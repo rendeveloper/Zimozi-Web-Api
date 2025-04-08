@@ -3,7 +3,12 @@ Zimozi Web Api Assessment
 
 # Zimozi Solutions Assessment
 > Started project to manage information and process of Zimozi Solutions Assessment.
-> Live demo  comming soon[_here_](https://www.commingsoon.com).
+
+
+# Live demo video
+> Live demo video  [_https://www.loom.com/share/4f7f8f64476140c587b1242ff71d5c99?sid=26f7185f-a6b1-4599-b9df-fdc70d331a96_](https://www.loom.com/share/4f7f8f64476140c587b1242ff71d5c99?sid=26f7185f-a6b1-4599-b9df-fdc70d331a96).
+
+> Technical Problem With camera in the Loom Recording App
 
 ## Table of Contents
 * [General Info](#general-information)
