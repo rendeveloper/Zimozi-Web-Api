@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CA7A7DC3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZimoziSolutions.Validations", "ZimoziSolutions.Validations\ZimoziSolutions.Validations.csproj", "{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZimoziSolutions.Tests", "ZimoziSolutions.Tests\ZimoziSolutions.Tests.csproj", "{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F61534F-8A6B-4E16-98D3-8E80C82ECCD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{EFC6832D-552F-47B6-97A3-67776D214C46} = {B843CAE9-5D6A-4DCC-A04C-820D26BEDDA6}
 		{44A39375-3EFB-46EC-8676-C2867F087418} = {0CF6A300-73D8-4104-8867-34E691922B1A}
 		{F4CCE91A-D1DB-441E-A62D-01738E8E5DD2} = {0CF6A300-73D8-4104-8867-34E691922B1A}
+		{ADDEBD48-D2ED-4AA2-8191-43BEF049FE7D} = {CA7A7DC3-641D-4B49-A745-DFDB2EEDFBC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38BB540C-E80B-42EF-AF85-6048A8B33B8C}

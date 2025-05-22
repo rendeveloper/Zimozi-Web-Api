@@ -23,6 +23,10 @@ namespace ZimoziSolutions.ApiModels.Responses
             TotalCount = count;
         }
 
+        public PaginatedResponse()
+        {
+        }
+
         public static PaginatedResponse<T> Failure(List<string> messages)
         {
             return new PaginatedResponse<T>(succeeded: false, null, messages, 0L);
